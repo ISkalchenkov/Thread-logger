@@ -2,8 +2,8 @@
 // Created by antarctica on 08.03.2021.
 //
 
-#ifndef LEVEL_HPP
-#define LEVEL_HPP
+#ifndef LOG_LEVEL_HPP
+#define LOG_LEVEL_HPP
 
 namespace log {
 
@@ -17,4 +17,4 @@ namespace log {
 
 } // namespace log
 
-#endif // LEVEL_HPP
+#endif // LOG_LEVEL_HPP

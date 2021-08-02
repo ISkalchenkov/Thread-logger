@@ -12,7 +12,7 @@ namespace log {
         : BaseLogger(lvl) {
     }
 
-    void StdoutLogger::flush() noexcept {
+    void StdoutLogger::flush() {
         std::cout.flush();
     }
 
@@ -20,5 +20,9 @@ namespace log {
         if (lvl >= level()) {
             std::cout << msg << '\n';
         }
+    }
+
+    std::unique_ptr<StdoutLogger> create_stdout_logger(Level lvl) {
+        return std::make_unique<StdoutLogger>(lvl);
     }
 } // namespace log

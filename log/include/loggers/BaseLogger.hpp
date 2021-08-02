@@ -2,8 +2,8 @@
 // Created by antarctica on 06.03.2021.
 //
 
-#ifndef BASE_LOGGER_H
-#define BASE_LOGGER_H
+#ifndef BASE_LOGGER_HPP
+#define BASE_LOGGER_HPP
 
 #include <string>
 
@@ -23,7 +23,7 @@ namespace log {
         void error(const std::string& msg);
         void fatal(const std::string& msg);
 
-        void set_level(const Level lvl) noexcept;
+        void set_level(Level lvl) noexcept;
         [[nodiscard]] Level level() const noexcept;
         virtual void flush() = 0;
 
@@ -31,9 +31,8 @@ namespace log {
         virtual void log(const std::string &msg, Level lvl) = 0;
 
         Level level_;
-
     };
 
 } // namespace log
 
-#endif
+#endif // BASE_LOGGER_HPP
