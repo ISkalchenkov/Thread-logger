@@ -2,8 +2,8 @@
 // Created by antarctica on 30.07.2021.
 //
 
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
+#ifndef LOG_LOGGER_HPP
+#define LOG_LOGGER_HPP
 
 #include <memory>
 
@@ -39,4 +39,4 @@ namespace log {
 
 } // namespace log
 
-#endif // LOGGER_HPP
+#endif // LOG_LOGGER_HPP

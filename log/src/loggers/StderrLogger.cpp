@@ -8,22 +8,20 @@
 
 namespace log {
 
-    StderrLogger::StderrLogger(Level lvl) noexcept
-        : BaseLogger(lvl) {
+    StderrLogger::StderrLogger(Level lvl, FormatterPtr formatter) noexcept
+        : BaseLogger(lvl, std::move(formatter)) {
     }
 
     void StderrLogger::flush() {
         std::cerr.flush();
     }
 
-    void StderrLogger::log(const std::string &msg, Level lvl) {
-        if (lvl >= level()) {
-            std::cerr << msg << '\n';
-        }
+    void StderrLogger::log_impl(const std::string &msg) {
+        std::cerr << msg << '\n';
     }
 
-    std::unique_ptr<StderrLogger> create_stderr_logger(Level lvl) {
-        return std::make_unique<StderrLogger>(lvl);
+    std::unique_ptr<StderrLogger> create_stderr_logger(Level lvl, FormatterPtr formatter) {
+        return std::make_unique<StderrLogger>(lvl, std::move(formatter));
     }
 
 } // namespace log

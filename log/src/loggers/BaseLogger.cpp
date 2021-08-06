@@ -2,33 +2,34 @@
 // Created by antarctica on 06.03.2021.
 //
 
+#include <memory>
+
 #include "loggers/BaseLogger.hpp"
 
 namespace log {
 
-    BaseLogger::BaseLogger() noexcept: level_(Level::INFO) {
+    BaseLogger::BaseLogger(Level lvl, FormatterPtr formatter) noexcept
+        : level_(lvl)
+        , formatter_(std::move(formatter)) {
     }
 
-    BaseLogger::BaseLogger(Level lvl) noexcept: level_(lvl) {
-    }
-
-    void BaseLogger::debug(const std::string &msg) {
+    void BaseLogger::debug(const std::string& msg) {
         log(msg, Level::DEBUG);
     }
 
-    void BaseLogger::info(const std::string &msg) {
+    void BaseLogger::info(const std::string& msg) {
         log(msg, Level::INFO);
     }
 
-    void BaseLogger::warning(const std::string &msg) {
+    void BaseLogger::warning(const std::string& msg) {
         log(msg, Level::WARNING);
     }
 
-    void BaseLogger::error(const std::string &msg) {
+    void BaseLogger::error(const std::string& msg) {
         log(msg, Level::ERROR);
     }
 
-    void BaseLogger::fatal(const std::string &msg) {
+    void BaseLogger::fatal(const std::string& msg) {
         log(msg, Level::FATAL);
     }
 
@@ -38,6 +39,20 @@ namespace log {
 
     Level BaseLogger::level() const noexcept {
         return level_;
+    }
+
+    void BaseLogger::log(const std::string &msg, Level lvl) {
+        if (lvl < level_) {
+            return;
+        }
+
+        if (formatter_) {
+            if (!formatter_->is_mod(mod::NONE)) {
+                log_impl(formatter_->format(msg, lvl));
+                return;
+            }
+        }
+        log_impl(msg); // if formatter_ is nullptr or none mods
     }
 
 } // namespace log

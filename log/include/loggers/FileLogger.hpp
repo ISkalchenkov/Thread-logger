@@ -2,8 +2,8 @@
 // Created by antarctica on 06.03.2021.
 //
 
-#ifndef FILE_LOGGER_HPP
-#define FILE_LOGGER_HPP
+#ifndef LOG_FILE_LOGGER_HPP
+#define LOG_FILE_LOGGER_HPP
 
 #include <fstream>
 #include <memory>
@@ -14,18 +14,20 @@ namespace log {
 
     class FileLogger final : public BaseLogger {
     public:
-        FileLogger(const std::string& file_path, Level lvl);
+        FileLogger(const std::string& file_path, Level lvl, FormatterPtr formatter = nullptr);
 
         void flush() override;
 
     private:
         std::ofstream file_;
 
-        void log(const std::string& msg, Level lvl) override;
+        void log_impl(const std::string& msg) override;
     };
 
-    std::unique_ptr<FileLogger> create_file_logger(const std::string& file_path, Level lvl);
+    std::unique_ptr<FileLogger> create_file_logger(const std::string& file_path,
+                                                   Level lvl,
+                                                   FormatterPtr formatter = nullptr);
 
 } // namespace log
 
-#endif // FILE_LOGGER_HPP
+#endif // LOG_FILE_LOGGER_HPP

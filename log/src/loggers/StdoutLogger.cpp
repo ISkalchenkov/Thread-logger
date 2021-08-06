@@ -3,26 +3,25 @@
 //
 
 #include <iostream>
+#include <utility>
 
 #include "loggers/StdoutLogger.hpp"
 
 namespace log {
 
-    StdoutLogger::StdoutLogger(Level lvl) noexcept
-        : BaseLogger(lvl) {
+    StdoutLogger::StdoutLogger(Level lvl, FormatterPtr formatter) noexcept
+        : BaseLogger(lvl, std::move(formatter)) {
     }
 
     void StdoutLogger::flush() {
         std::cout.flush();
     }
 
-    void StdoutLogger::log(const std::string &msg, Level lvl) {
-        if (lvl >= level()) {
-            std::cout << msg << '\n';
-        }
+    void StdoutLogger::log_impl(const std::string &msg) {
+        std::cout << msg << '\n';
     }
 
-    std::unique_ptr<StdoutLogger> create_stdout_logger(Level lvl) {
-        return std::make_unique<StdoutLogger>(lvl);
+    std::unique_ptr<StdoutLogger> create_stdout_logger(Level lvl, FormatterPtr formatter) {
+        return std::make_unique<StdoutLogger>(lvl, std::move(formatter));
     }
 } // namespace log

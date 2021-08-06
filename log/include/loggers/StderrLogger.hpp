@@ -2,8 +2,8 @@
 // Created by antarctica on 06.03.2021.
 //
 
-#ifndef STDERR_LOGGER_HPP
-#define STDERR_LOGGER_HPP
+#ifndef LOG_STDERR_LOGGER_HPP
+#define LOG_STDERR_LOGGER_HPP
 
 #include <memory>
 
@@ -14,16 +14,16 @@ namespace log {
 
     class StderrLogger final : public BaseLogger {
     public:
-        explicit StderrLogger(Level lvl) noexcept;
+        explicit StderrLogger(Level lvl, FormatterPtr formatter = nullptr) noexcept;
 
         void flush() override;
 
     private:
-        void log(const std::string& msg, Level lvl) override;
+        void log_impl(const std::string& msg) override;
     };
 
-    std::unique_ptr<StderrLogger> create_stderr_logger(Level lvl);
+    std::unique_ptr<StderrLogger> create_stderr_logger(Level lvl, FormatterPtr formatter = nullptr);
 
 } // namespace log
 
-#endif // STDERR_LOGGER_HPP
+#endif // LOG_STDERR_LOGGER_HPP
