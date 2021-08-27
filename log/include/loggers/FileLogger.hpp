@@ -19,9 +19,10 @@ namespace log {
         void flush() override;
 
     private:
-        std::ofstream file_;
-
         void log_impl(const std::string& msg) override;
+
+    private:
+        std::ofstream file_;
     };
 
     std::unique_ptr<FileLogger> create_file_logger(const std::string& file_path,

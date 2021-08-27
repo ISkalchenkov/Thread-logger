@@ -21,10 +21,11 @@ namespace log {
         void set_global_logger(BaseLoggerPtr logger);
 
     private:
-        BaseLoggerPtr global_logger_;
-
         Logger();
         ~Logger() noexcept = default;
+
+    private:
+        BaseLoggerPtr global_logger_;
     };
 
     void init(BaseLoggerPtr logger);
