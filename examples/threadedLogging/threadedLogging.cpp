@@ -8,7 +8,7 @@
 #include "loggers/StdoutLogger.hpp"
 
 int main() {
-    log::init(log::create_stdout_logger(log::Level::DEBUG,
+    log::init(log::create_stdout_logger(log::Level::WARNING,
                                         std::make_shared<log::LogFormatter>(log::mod::ALL)));
 
     std::vector<std::thread> threads;
